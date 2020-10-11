@@ -12,7 +12,6 @@ export class CheckOut extends Component {
                     <Products/>
                     
                 </Col>
-                <Col>2 of 2</Col>
                 </Row>
             </Container>
             </div>
