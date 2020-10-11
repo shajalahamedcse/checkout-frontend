@@ -3,14 +3,16 @@ import axios from 'axios';
 import BASE_URL from '../utils';
 import {Card,ListGroup,Button,Row,Col,ButtonGroup,InputGroup,FormControl} from 'react-bootstrap';
 
-
 export class Products extends Component {
     
     state ={
         products: [],
         cart: [],
         subtotal: 0 ,
-        promo:''
+        promo:'',
+        after_promo: 0,
+        show_valid: false,
+        show_invalid: false
     }
 
     handleChange = (e) => {
@@ -70,7 +72,13 @@ export class Products extends Component {
         }
 
         axios.post(BASE_URL + '/api/v1/apply-promo', payload).then(res => {
-            console.log(res.data)
+            if(res.data.validity) {
+                this.setState({after_promo: res.data.subtotal})
+                this.setState({show_valid: true, show_invalid: false})
+            }
+            else {
+                this.setState({show_invalid: true, show_valid: false, after_promo: this.state.subtotal})
+            }
         }).catch(err=> {
             console.log(err)
         })
@@ -136,8 +144,15 @@ export class Products extends Component {
                             <Button variant="outline-secondary" onClick={this.checkPromo}>Apply Promo</Button>
                             </InputGroup.Append>
                         </InputGroup>
+                            {this.state.show_valid ? <p style={{color: "green"}}>Promo Code Applied</p> : ""}
+                            {this.state.show_invalid ? <p style={{color: "red"}}>Promo is Invalid</p> : ""}
+                            <br/>
+                            <h3 align="center">Net Amount: {this.state.after_promo}</h3>
+                            <br/>
+                            <Button variant="primary" size="lg" block>
+                                Checkout
+                            </Button>
                         </ListGroup>
-                        
                     </Card>
                     
             </div>
