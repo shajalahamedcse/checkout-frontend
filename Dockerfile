@@ -1,20 +1,3 @@
-# # pull official base image
-# FROM node:13.10.1-alpine
-
-# # set working directory
-# WORKDIR /usr/src/app
-
-# COPY . /usr/src/app
-
-# RUN npm install
-
-# # start app
-# CMD ["npm", "start"]
-
-
-###########
-# BUILDER #
-###########
 
 # base image
 FROM node:13.10.1-alpine as builder

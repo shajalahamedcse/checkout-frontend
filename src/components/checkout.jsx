@@ -10,8 +10,7 @@ export class CheckOut extends Component {
                 <ToastContainer/>
                 <Row>
                 <Col>
-                    <Products/>
-                    
+                    <Products/>   
                 </Col>
                 </Row>
             </Container>
